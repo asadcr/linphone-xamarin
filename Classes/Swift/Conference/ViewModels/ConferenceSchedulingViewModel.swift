@@ -139,7 +139,7 @@ class ConferenceSchedulingViewModel  {
 	func isEndToEndEncryptedChatAvailable() -> Bool {
 		let core = Core.get()
 		return core.limeX3DhEnabled &&
-		((core.limeX3DhServerUrl != nil && core.limeX3DhServerUrl.count > 0) || core.defaultAccount?.params?.limeServerUrl != nil) &&
+		(core.limeX3DhServerUrl != nil && core.limeX3DhServerUrl.count > 0) &&
 					 core.defaultAccount?.params?.conferenceFactoryUri != nil
 	 }
 	
@@ -194,7 +194,7 @@ class ConferenceSchedulingViewModel  {
 			conferenceScheduler = try? Core.get().createConferenceScheduler()
 			conferenceScheduler?.addDelegate(delegate: conferenceSchedulerDelegate!)
 		
-			guard let conferenceInfo = existingConfInfo.value != nil ? existingConfInfo.value??.clone() : try Factory.Instance.createConferenceInfo() else {
+			guard let conferenceInfo = existingConfInfo.value != nil ? nil : try Factory.Instance.createConferenceInfo() else {
 				Log.e("[Conference Creation/Update] Failed, unable to get conf info.")
 				return
 			}

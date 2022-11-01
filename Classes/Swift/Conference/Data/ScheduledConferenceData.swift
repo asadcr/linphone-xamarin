@@ -66,7 +66,7 @@ class ScheduledConferenceData {
 		
 		computeParticipantsLists()
 		
-		isConferenceCancelled.value = conferenceInfo.state == .Cancelled
+		// isConferenceCancelled.value = conferenceInfo.state == .Cancelled
 		
 		if let organizerAddress = conferenceInfo.organizer {
 			let localAccount = Core.get().accountList.filter { account in
@@ -118,15 +118,15 @@ class ScheduledConferenceData {
 				}
 			})
 		
-		if (conferenceInfo.state != .Cancelled && canEdit.value == true) {
-			Log.i("[Scheduled Conferences] Cancelling conference \(conferenceInfo.subject)")
-			self.conferenceScheduler = try? Core.get().createConferenceScheduler()
-			if (self.conferenceScheduler != nil) {
-				self.conferenceScheduler?.addDelegate(delegate: conferenceSchedulerDelegate!)
-				self.conferenceScheduler?.cancelConference(conferenceInfo: conferenceInfo)
-			}
-		} else {
+		//if (conferenceInfo.state != .Cancelled && canEdit.value == true) {
+			//Log.i("[Scheduled Conferences] Cancelling conference \(conferenceInfo.subject)")
+			//self.conferenceScheduler = try? Core.get().createConferenceScheduler()
+			//if (self.conferenceScheduler != nil) {
+			//	self.conferenceScheduler?.addDelegate(delegate: conferenceSchedulerDelegate!)
+				//self.conferenceScheduler?.cancelConference(conferenceInfo: conferenceInfo)
+			//}
+		//} else {
 			Core.get().deleteConferenceInformation(conferenceInfo: conferenceInfo)
-		}
+		//}
 	}
 }

@@ -62,9 +62,9 @@ import EventKitUI
 				descriptionTitle.isHidden = data.description.value == nil || data.description.value!.count == 0
 				descriptionValue.isHidden = descriptionTitle.isHidden
 				descriptionValue.text = data.description.value
-				inviteTitle.isHidden = [.Cancelled,.Updated].contains(data.conferenceInfo.state)
-				inviteCancelled.isHidden = data.conferenceInfo.state != .Cancelled
-				inviteUpdated.isHidden = data.conferenceInfo.state != .Updated
+				//inviteTitle.isHidden = [.Cancelled,.Updated].contains(data.conferenceInfo.state)
+				//inviteCancelled.isHidden = data.conferenceInfo.state != .Cancelled
+				//inviteUpdated.isHidden = data.conferenceInfo.state != .Updated
 				join.isEnabled = data.isConferenceCancelled.value != true
 			}
 		}

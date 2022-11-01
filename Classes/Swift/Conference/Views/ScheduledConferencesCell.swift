@@ -69,7 +69,7 @@ class ScheduledConferencesCell: UITableViewCell {
 				self.copyLink.isHidden = data.isConferenceCancelled.value == true
 				data.expanded.readCurrentAndObserve { expanded in
 					self.myContentView.backgroundColor =
-							data.conferenceInfo.state == .Cancelled ? VoipTheme.voip_conference_cancelled_bg_color :
+							//data.conferenceInfo.state == .Cancelled ? VoipTheme.voip_conference_cancelled_bg_color :
 					data.isFinished ? VoipTheme.backgroundColor3.get() :  VoipTheme.backgroundColor4.get()
 					self.myContentView.layer.borderWidth = expanded == true ? 2.0 : 0.0
 					self.descriptionTitle.isHidden = expanded != true || self.descriptionValue.text?.count == 0
@@ -80,7 +80,8 @@ class ScheduledConferencesCell: UITableViewCell {
 					self.expandedRows.isHidden = expanded != true
 					self.joinEditDelete.isHidden = expanded != true
 					if let myAddress = Core.get().defaultAccount?.params?.identityAddress {
-						self.editConf.isHidden = expanded != true || data.conferenceInfo.organizer?.weakEqual(address2: myAddress) != true || data.conferenceInfo.state == .Cancelled
+						self.editConf.isHidden = expanded != true || data.conferenceInfo.organizer?.weakEqual(address2: myAddress) != true
+                        //|| data.conferenceInfo.state == .Cancelled
 					} else {
 						self.editConf.isHidden = true
 					}
