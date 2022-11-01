@@ -489,10 +489,27 @@
 
 - (void)application:(UIApplication *)application
 	didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	LOGI(@"[APNs] %@ : %@", NSStringFromSelector(_cmd), deviceToken);
-	dispatch_async(dispatch_get_main_queue(), ^{
-		linphone_core_did_register_for_remote_push(LC, (__bridge void*)deviceToken);
-	});
+	//LOGI(@"[APNs] %@ : %@", NSStringFromSelector(_cmd), deviceToken);
+	//dispatch_async(dispatch_get_main_queue(), ^{
+	//	linphone_core_did_register_for_remote_push(LC, (__bridge void*)deviceToken);
+	//});
+    NSString *token = @"";
+	if (@available(iOS 13, *)) {
+        NSUInteger length = deviceToken.length;
+        if (length == 0) {
+            token = @"";
+        }
+        const unsigned char *buffer = deviceToken.bytes;
+        NSMutableString *actualToken  = [NSMutableString stringWithCapacity:(length * 2)];
+        for (int i = 0; i < length; ++i) {
+            [actualToken appendFormat:@"%02x", buffer[i]];
+        }
+        token = [actualToken copy];
+        } else {
+            token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+                token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
+        NSLog(@"My token is: %@", token);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
@@ -530,7 +547,7 @@
 }
 
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-	
+	NSLog(userInfo);
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
